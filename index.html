@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloom Creations - 3D Portfolio</title>
+    <style>
+        /* Basic Reset and Font */
+        body {
+            margin: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow: hidden; /* Prevent scrollbars */
+        }
+
+        /* Canvas Styling */
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* UI Elements Styling */
+        .ui-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Allow mouse events to pass through to the canvas */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+        
+        /* Title and Instructions */
+        .header {
+            width: 100%;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        .header p {
+            margin: 0.5rem 0 0;
+            font-size: 1rem;
+            color: #ccc;
+        }
+
+        /* Interaction Prompt */
+        #prompt {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.5);
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.5);
+            font-size: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        #prompt.visible {
+            opacity: 1;
+        }
+
+        /* Project Overlay Modal */
+        #project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: all;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s;
+        }
+        #project-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .project-content {
+            background: rgba(20, 20, 30, 0.8);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 16px;
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+            transform: scale(0.9);
+            transition: transform 0.4s ease;
+            position: relative; /* For loader positioning */
+        }
+        #project-overlay.visible .project-content {
+            transform: scale(1);
+        }
+        .project-content h2 {
+            margin: 0 0 1rem;
+            color: #00ffff;
+            font-size: 2rem;
+        }
+        .project-content p {
+            margin: 0 0 2rem;
+            line-height: 1.6;
+            color: #ddd;
+            min-height: 100px; /* Reserve space */
+        }
+        .project-links a, .project-links button {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+        #project-link {
+            background: #00ffff;
+            color: #000;
+            margin-right: 1rem;
+        }
+        #project-link:hover {
+            background: #fff;
+            transform: translateY(-2px);
+        }
+        #expand-description {
+            background: linear-gradient(45deg, #8a2be2, #4169e1);
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #expand-description:hover:not(:disabled) {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+        }
+        #expand-description:disabled {
+            background: #555;
+            cursor: not-allowed;
+        }
+        #close-overlay {
+            background: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-left: 1rem;
+        }
+        #close-overlay:hover {
+            background: #555;
+            transform: translateY(-2px);
+        }
+        
+        /* Gemini API Loader */
+        #loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid #FFF;
+            border-bottom-color: #00ffff;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        @keyframes rotation {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="ui-container">
+        <div class="header">
+            <h1>Bloom Creations</h1>
+            <p>W, A, S, D to move &nbsp;&nbsp;|&nbsp;&nbsp; Mouse to look &nbsp;&nbsp;|&nbsp;&nbsp; E to interact</p>
+        </div>
+        <div id="prompt"></div>
+    </div>
+    
+    <div id="project-overlay">
+        <div class="project-content">
+            <div id="loader" class="hidden"></div>
+            <h2 id="project-title"></h2>
+            <p id="project-description"></p>
+            <div class="project-links">
+                <a id="project-link" href="#" target="_blank">View Project</a>
+                <button id="expand-description">✨ Expand with AI</button>
+                <button id="close-overlay">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Three.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // --- SCENE SETUP ---
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x000510, 0.005);
+        scene.background = new THREE.Color(0x000510);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+        camera.position.set(0, 10, 50);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        document.body.appendChild(renderer.domElement);
+        
+        // --- LIGHTING ---
+        const ambientLight = new THREE.AmbientLight(0x4040ff, 0.6);
+        scene.add(ambientLight);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(50, 50, 50);
+        scene.add(directionalLight);
+        
+        // --- SPACESHIP ---
+        const spaceship = new THREE.Group();
+        scene.add(spaceship);
+        spaceship.add(camera);
+        camera.position.set(0, 2, 7);
+
+        const shipBodyMat = new THREE.MeshPhongMaterial({ color: 0x5c6a7d, flatShading: true });
+        const shipWingMat = new THREE.MeshPhongMaterial({ color: 0x3e4a5c, flatShading: true });
+        const cockpitMat = new THREE.MeshPhongMaterial({ color: 0x00ffff, emissive: 0x00ffff, emissiveIntensity: 0.8, transparent: true, opacity: 0.8 });
+        const engineMat = new THREE.MeshBasicMaterial({ color: 0xffa500 });
+        
+        const bodyGeom = new THREE.CylinderGeometry(0, 0.8, 4, 8);
+        const bodyMesh = new THREE.Mesh(bodyGeom, shipBodyMat);
+        bodyMesh.rotation.x = Math.PI / 2;
+        spaceship.add(bodyMesh);
+
+        const cockpitGeom = new THREE.IcosahedronGeometry(0.7, 1);
+        const cockpitMesh = new THREE.Mesh(cockpitGeom, cockpitMat);
+        cockpitMesh.position.set(0, 0.2, -1.5);
+        spaceship.add(cockpitMesh);
+
+        const wingShape = new THREE.Shape().moveTo(0, 0.5).lineTo(3, 1).lineTo(3, 1.5).lineTo(0, 0);
+        const wingGeom = new THREE.ExtrudeGeometry(wingShape, { depth: 0.2, bevelEnabled: false });
+        const rightWing = new THREE.Mesh(wingGeom, shipWingMat);
+        rightWing.position.set(0.5, 0, -1);
+        spaceship.add(rightWing);
+        const leftWing = rightWing.clone();
+        leftWing.rotation.y = Math.PI;
+        leftWing.position.set(-0.5, 0, -1);
+        spaceship.add(leftWing);
+
+        const engineGeom = new THREE.CylinderGeometry(0.5, 0.3, 0.5, 8);
+        const engineMesh = new THREE.Mesh(engineGeom, engineMat);
+        engineMesh.rotation.x = Math.PI / 2;
+        engineMesh.position.z = 2.25;
+        spaceship.add(engineMesh);
+        const engineLight = new THREE.PointLight(0xffa500, 2, 10);
+        engineLight.position.z = 2.5;
+        spaceship.add(engineLight);
+
+        // --- TERRAIN ---
+        const terrainSize = 1000;
+        const terrainGeometry = new THREE.PlaneGeometry(terrainSize, terrainSize, 100, 100);
+        const vertices = terrainGeometry.attributes.position.array;
+        for (let i = 0; i <= vertices.length; i += 3) {
+            vertices[i + 2] = Math.random() * 20;
+        }
+        terrainGeometry.attributes.position.needsUpdate = true;
+        terrainGeometry.computeVertexNormals();
+        const terrainMaterial = new THREE.MeshPhongMaterial({ color: 0x102040, shininess: 0, wireframe: true });
+        const terrain = new THREE.Mesh(terrainGeometry, terrainMaterial);
+        terrain.rotation.x = -Math.PI / 2;
+        scene.add(terrain);
+
+        // --- STARS ---
+        const starGeometry = new THREE.BufferGeometry();
+        const starVertices = [];
+        for (let i = 0; i < 15000; i++) {
+            const x = THREE.MathUtils.randFloatSpread(2000);
+            const y = THREE.MathUtils.randFloatSpread(2000);
+            const z = THREE.MathUtils.randFloatSpread(2000);
+            starVertices.push(x, y, z);
+        }
+        starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+        const starMaterial = new THREE.PointsMaterial({ color: 0x888888, size: 0.7 });
+        const stars = new THREE.Points(starGeometry, starMaterial);
+        scene.add(stars);
+
+        // --- PROJECTS DATA ---
+        const projects = [
+            {
+                title: "Project Alpha",
+                description: "A full-stack web application built with React and Node.js, featuring real-time data visualization and a robust user authentication system. Deployed on AWS.",
+                link: "https://github.com/",
+                position: new THREE.Vector3(-50, 20, -100)
+            },
+            {
+                title: "Cyber Security Analysis",
+                description: "Conducted a comprehensive vulnerability assessment and penetration test for a mid-sized e-commerce platform. Developed mitigation strategies that reduced attack surface by 70%.",
+                link: "https://github.com/",
+                position: new THREE.Vector3(70, 30, -50)
+            },
+            {
+                title: "About Me",
+                description: "Passionate developer and IT professional. Knack for creating elegant solutions to complex problems. Skilled in both software development and network infrastructure.",
+                link: "https://www.linkedin.com/",
+                position: new THREE.Vector3(0, 15, -150)
+            },
+             {
+                title: "Cloud Migration",
+                description: "Led a team to migrate a legacy monolithic application to a microservices architecture on Google Cloud Platform, resulting in a 40% improvement in performance and scalability.",
+                link: "https://github.com/",
+                position: new THREE.Vector3(100, 40, 100)
+            }
+        ];
+
+        // --- PROJECT MARKERS ---
+        const projectMarkers = new THREE.Group();
+        const markerMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff, wireframe: true });
+        projects.forEach(p => {
+            const markerGeom = new THREE.SphereGeometry(5, 16, 8);
+            const marker = new THREE.Mesh(markerGeom, markerMaterial);
+            marker.position.copy(p.position);
+            marker.userData.project = p;
+            projectMarkers.add(marker);
+        });
+        scene.add(projectMarkers);
+
+        // --- CONTROLS & MOVEMENT ---
+        const controls = { moveForward: false, moveBackward: false, moveLeft: false, moveRight: false, mouseX: 0, mouseY: 0 };
+        const velocity = new THREE.Vector3();
+        const direction = new THREE.Vector3();
+        
+        document.addEventListener('keydown', (e) => onKey(e.code, true));
+        document.addEventListener('keyup', (e) => onKey(e.code, false));
+        document.addEventListener('mousemove', onMouseMove);
+
+        function onKey(code, isPressed) {
+            switch (code) {
+                case 'KeyW': case 'ArrowUp': controls.moveForward = isPressed; break;
+                case 'KeyS': case 'ArrowDown': controls.moveBackward = isPressed; break;
+                case 'KeyA': case 'ArrowLeft': controls.moveLeft = isPressed; break;
+                case 'KeyD': case 'ArrowRight': controls.moveRight = isPressed; break;
+                case 'KeyE': if(isPressed) interact(); break;
+            }
+        }
+        
+        function onMouseMove(event) {
+            controls.mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            controls.mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+        }
+
+        // --- INTERACTION ---
+        const raycaster = new THREE.Raycaster();
+        const promptEl = document.getElementById('prompt');
+        let activeProject = null;
+
+        function checkInteraction() {
+            const camDirection = new THREE.Vector3();
+            camera.getWorldDirection(camDirection);
+            
+            raycaster.set(spaceship.position, camDirection);
+            const intersects = raycaster.intersectObjects(projectMarkers.children);
+
+            if (intersects.length > 0 && intersects[0].distance < 150) {
+                const project = intersects[0].object.userData.project;
+                if (activeProject !== project) { // Only update if the project changes
+                    activeProject = project;
+                    promptEl.textContent = `Press 'E' to view "${project.title}"`;
+                    promptEl.classList.add('visible');
+                }
+                intersects[0].object.material.color.set(0xff00ff);
+            } else {
+                if (activeProject) { // Only update if it was previously visible
+                    activeProject = null;
+                    promptEl.classList.remove('visible');
+                }
+            }
+        }
+        
+        function interact() {
+            if (activeProject) {
+                showProjectOverlay(activeProject);
+            }
+        }
+
+        // --- PROJECT OVERLAY UI ---
+        const overlay = document.getElementById('project-overlay');
+        const projectTitle = document.getElementById('project-title');
+        const projectDesc = document.getElementById('project-description');
+        const projectLink = document.getElementById('project-link');
+        const expandBtn = document.getElementById('expand-description');
+        const loader = document.getElementById('loader');
+
+        function showProjectOverlay(project) {
+            projectTitle.textContent = project.title;
+            projectDesc.textContent = project.description;
+            projectLink.href = project.link;
+            overlay.classList.add('visible');
+        }
+
+        document.getElementById('close-overlay').addEventListener('click', () => {
+             overlay.classList.remove('visible');
+        });
+
+        // --- GEMINI API INTEGRATION ---
+        async function expandDescriptionWithAI() {
+            if (!activeProject) return;
+
+            expandBtn.disabled = true;
+            loader.classList.remove('hidden');
+            projectDesc.style.visibility = 'hidden';
+
+            let prompt;
+            if (activeProject.title === "About Me") {
+                prompt = `You are a professional career coach writing a bio for a portfolio. Expand the following points into a compelling and professional "About Me" section, written in the first person. Original points: "${activeProject.description}"`;
+            } else {
+                prompt = `You are a technical writer for a software development portfolio. Expand the following project description to be more detailed and professional, highlighting the technologies and outcomes. Project Title: "${activeProject.title}". Original Description: "${activeProject.description}"`;
+            }
+            
+            try {
+                const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                const payload = { contents: chatHistory };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API Error: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.candidates && result.candidates[0]?.content?.parts[0]?.text) {
+                    const newText = result.candidates[0].content.parts[0].text;
+                    projectDesc.textContent = newText;
+                    // Update the project data in memory so it persists if the modal is reopened
+                    activeProject.description = newText; 
+                } else {
+                    throw new Error("Invalid API response format.");
+                }
+
+            } catch(error) {
+                console.error("Gemini API call failed:", error);
+                projectDesc.textContent = "Sorry, the AI expansion failed. Please try again.";
+            } finally {
+                expandBtn.disabled = false;
+                loader.classList.add('hidden');
+                projectDesc.style.visibility = 'visible';
+            }
+        }
+        
+        expandBtn.addEventListener('click', expandDescriptionWithAI);
+        
+        // --- ANIMATION LOOP ---
+        const clock = new THREE.Clock();
+        function animate() {
+            requestAnimationFrame(animate);
+            const delta = clock.getDelta();
+            
+            projectMarkers.children.forEach(m => m.material.color.set(0x00ffff));
+            
+            const enginePulse = Math.sin(clock.getElapsedTime() * 5) * 0.5 + 0.5;
+            engineLight.intensity = 2 + enginePulse * 2;
+            engineMesh.material.color.setHSL(0.1, 1, 0.5 + enginePulse * 0.2);
+
+            spaceship.rotation.y += (-controls.mouseX - spaceship.rotation.y) * 0.05;
+            spaceship.rotation.x += (controls.mouseY - spaceship.rotation.x) * 0.05;
+            spaceship.rotation.x = Math.max(-Math.PI/4, Math.min(Math.PI/4, spaceship.rotation.x));
+            
+            velocity.x -= velocity.x * 10.0 * delta;
+            velocity.z -= velocity.z * 10.0 * delta;
+            
+            direction.z = Number(controls.moveForward) - Number(controls.moveBackward);
+            direction.x = Number(controls.moveRight) - Number(controls.moveLeft);
+            direction.normalize();
+
+            if (controls.moveForward || controls.moveBackward) velocity.z -= direction.z * 200.0 * delta;
+            if (controls.moveLeft || controls.moveRight) velocity.x -= direction.x * 200.0 * delta;
+            
+            spaceship.translateX(-velocity.x * delta);
+            spaceship.translateZ(velocity.z * delta);
+            
+            spaceship.position.y = Math.max(spaceship.position.y, 5);
+
+            checkInteraction();
+            renderer.render(scene, camera);
+        }
+
+        // Handle window resizing
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Start the animation loop
+        animate();
+    </script>
+</body>
+</html>
