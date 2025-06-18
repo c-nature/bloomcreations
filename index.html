@@ -9,53 +9,57 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Custom font for the entire body */
         body {
             font-family: 'Inter', sans-serif;
         }
+        /* Gradient text for the main title and logo */
         .gradient-text {
             background: linear-gradient(to right, #4ade80, #3b82f6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        /* Simple scrollbar styling */
+        /* Simple scrollbar styling for better aesthetics */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 8px; /* Width of the scrollbar */
         }
         ::-webkit-scrollbar-track {
-            background: #1a202c;
+            background: #1a202c; /* Background of the scrollbar track */
         }
         ::-webkit-scrollbar-thumb {
-            background-color: #4a5568;
-            border-radius: 4px;
+            background-color: #4a5568; /* Color of the scrollbar thumb */
+            border-radius: 4px; /* Rounded corners for the thumb */
         }
         ::-webkit-scrollbar-thumb:hover {
-            background-color: #718096;
+            background-color: #718096; /* Color of the scrollbar thumb on hover */
         }
-        /* Active link style */
+        /* Styling for active navigation links */
         .active-link {
-            color: #4ade80;
-            font-weight: 600;
+            color: #4ade80; /* Green color for active links */
+            font-weight: 600; /* Bolder font for active links */
         }
     </style>
 </head>
 <body class="bg-gray-900 text-gray-200">
 
-    <!-- Header & Navigation -->
+    <!-- Header & Navigation Section -->
     <header class="bg-gray-900/80 backdrop-blur-md sticky top-0 z-40">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Site logo/title with gradient text -->
             <a href="#hero" class="text-2xl font-bold gradient-text">Bloom Creations</a>
+            <!-- Desktop Navigation Links -->
             <div id="desktop-nav" class="hidden md:flex items-center space-x-6">
                 <a href="#about" class="nav-link hover:text-green-400 transition-colors duration-300">About</a>
                 <a href="#projects" class="nav-link hover:text-green-400 transition-colors duration-300">Projects</a>
                 <a href="#skills" class="nav-link hover:text-green-400 transition-colors duration-300">Skills</a>
                 <a href="#contact" class="nav-link bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg transition-colors duration-300">Contact</a>
             </div>
-            <!-- Mobile Menu Button -->
+            <!-- Mobile Menu Button (Hamburger Icon) -->
             <button id="mobile-menu-button" class="md:hidden text-gray-200 focus:outline-none">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </nav>
-        <!-- Mobile Menu -->
+        <!-- Mobile Menu (initially hidden) -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
             <a href="#about" class="nav-link block py-2 hover:text-green-400">About</a>
             <a href="#projects" class="nav-link block py-2 hover:text-green-400">Projects</a>
@@ -66,23 +70,24 @@
 
     <main class="container mx-auto px-6 py-12">
 
-        <!-- Hero Section -->
+        <!-- Hero Section: Introduction and Call to Action -->
         <section id="hero" class="text-center py-20">
             <h1 class="text-5xl md:text-7xl font-bold mb-4">
                 <span class="gradient-text">Cultivating Ideas,</span><br> Crafting Digital Experiences.
             </h1>
             <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mt-6">
-                 Welcome to Bloom Creations. A passionate IT operations specialist, developer, and graphic designer's portfolio showcasing innovative solutions, software, web projects, and creative designs.
+                Welcome to Bloom Creations. A passionate IT operations specialist, developer, and graphic designer's portfolio showcasing innovative solutions, software, web projects, and creative designs.
             </p>
             <div class="mt-10">
                 <a href="#projects" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full text-lg transition-transform duration-300 transform hover:scale-105">View My Work</a>
             </div>
         </section>
 
-        <!-- About Section -->
+        <!-- About Section: Stephen Bloom's Introduction -->
         <section id="about" class="py-20">
             <div class="grid md:grid-cols-5 gap-10 items-center">
                 <div class="md:col-span-2">
+                    <!-- Placeholder image for Stephen Bloom's photo -->
                     <img src="https://placehold.co/600x600/1a202c/4ade80?text=S.B." alt="A photo of Stephen Bloom" class="rounded-full shadow-lg mx-auto w-64 h-64 md:w-full md:h-auto object-cover">
                 </div>
                 <div class="md:col-span-3">
@@ -97,48 +102,59 @@
             </div>
         </section>
 
-        <!-- Projects Section -->
+        <!-- Projects Section: Displaying Project Cards -->
         <section id="projects" class="py-20">
             <h2 class="text-3xl font-bold text-center mb-12 text-green-400">My Projects</h2>
-            <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-green-500/20 transition-shadow duration-300 transform hover:-translate-y-2 flex flex-col">
-    <img src="https://placehold.co/600x400/1f2937/4ade80?text=E-Commerce+Platform" alt="Project 1 Screenshot" class="w-full h-48 object-cover">
-    <div class="p-6 flex flex-col flex-grow">
-        <h3 class="text-xl font-semibold mb-2">Subnet Calculator</h3> <p class="text-gray-400 mb-4 flex-grow">A full-stack e-commerce platform developed with the MERN stack, featuring product listings, a shopping cart, and a secure checkout process.</p>
-        <div class="flex space-x-4 mt-auto">
-            <a href="C:\Users\sbloo\Desktop\Coding Projects\Website\subcalc.html" class="text-green-400 hover:underline">View Demo</a>
-            <a href="https://github.com/your-username/your-ecommerce-repo" target="_blank" class="text-green-400 hover:underline">GitHub</a>
-        </div>
-    </div>
-</div>
+            <!-- Grid container for all project cards, ensuring responsive layout -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Project Card 1: Subnet Calculator -->
+                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-green-500/20 transition-shadow duration-300 transform hover:-translate-y-2 flex flex-col">
+                    <!-- Placeholder image for the project screenshot -->
+                    <img src="https://placehold.co/600x400/1f2937/4ade80?text=Subnet+Calculator" alt="Subnet Calculator Screenshot" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold mb-2">Subnet Calculator</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">A cross-platform desktop application built with Neutralino.js for quick and accurate network subnet calculations.</p>
+                        <div class="flex space-x-4 mt-auto">
+                            <!-- CORRECTED LINK: Points to subcalc.html in the same directory -->
+                            <a href="subcalc.html" class="text-green-400 hover:underline">View Demo</a>
+                            <!-- Placeholder for GitHub link, replace with actual repo -->
+                            <a href="https://github.com/your-username/your-subnet-calculator-repo" target="_blank" class="text-green-400 hover:underline">GitHub</a>
+                        </div>
+                    </div>
+                </div>
 
-                <!-- Project Card 2 -->
+                <!-- Project Card 2: IT Automation Script -->
                 <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-green-500/20 transition-shadow duration-300 transform hover:-translate-y-2 flex flex-col">
                     <img src="https://placehold.co/600x400/1f2937/4ade80?text=Automation+Script" alt="Project 2 Screenshot" class="w-full h-48 object-cover">
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-xl font-semibold mb-2">IT Automation Script</h3>
                         <p class="text-gray-400 mb-4 flex-grow">An innovative IT automation script that saved countless hours by automating server provisioning and software deployment. Built with Python and Ansible for robust configuration management.</p>
-                         <div class="flex space-x-4 mt-auto">
+                       <div class="flex space-x-4 mt-auto">
+                            <!-- Placeholder for View Script link -->
                             <a href="#" class="text-green-400 hover:underline">View Script</a>
+                            <!-- Placeholder for GitHub link -->
                             <a href="#" class="text-green-400 hover:underline">GitHub</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Project Card 3 (Design) -->
+                <!-- Project Card 3: Branding & UI Kit (Design Project) -->
                 <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-green-500/20 transition-shadow duration-300 transform hover:-translate-y-2 flex flex-col">
                     <img src="https://placehold.co/600x400/1f2937/4ade80?text=Branding" alt="Project 3 Screenshot" class="w-full h-48 object-cover">
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-xl font-semibold mb-2">Branding & UI Kit</h3>
                         <p class="text-gray-400 mb-4 flex-grow">A complete branding package and UI kit for a tech startup, including a modern logo, a cohesive color palette, typography guidelines, and a library of reusable web components designed in Figma.</p>
-                         <div class="flex space-x-4 mt-auto">
+                       <div class="flex space-x-4 mt-auto">
+                            <!-- Placeholder for Behance/Portfolio link -->
                             <a href="#" class="text-green-400 hover:underline">View on Behance</a>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- End of grid container -->
         </section>
 
-        <!-- Skills Section -->
+        <!-- Skills Section: List of Technical & Creative Skills -->
         <section id="skills" class="py-20 bg-gray-800/50 rounded-lg">
             <h2 class="text-3xl font-bold text-center mb-12 text-green-400">Technical & Creative Skills</h2>
             <div class="max-w-4xl mx-auto">
@@ -158,12 +174,13 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
+        <!-- Contact Section: Call to Action for Contact -->
         <section id="contact" class="py-20 text-center">
             <h2 class="text-3xl font-bold mb-4 text-green-400">Get In Touch</h2>
             <p class="text-gray-400 max-w-2xl mx-auto mb-8">
                 I'm currently open to new opportunities and collaborations. Whether you need a developer, a designer, or both, feel free to reach out. Let's create something amazing together.
             </p>
+            <!-- Mailto link for direct email contact -->
             <a href="mailto:your-email@example.com" class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full text-lg transition-transform duration-300 transform hover:scale-105">
                 Say Hello
             </a>
@@ -171,11 +188,12 @@
 
     </main>
 
-    <!-- Footer -->
+    <!-- Footer Section -->
     <footer class="bg-gray-800">
         <div class="container mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center">
             <p class="text-gray-400">&copy; 2024 Bloom Creations. All Rights Reserved.</p>
             <div class="flex space-x-6 mt-4 md:mt-0">
+                <!-- Placeholder social media links -->
                 <a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300">GitHub</a>
                 <a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300">LinkedIn</a>
                 <a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Behance</a>
@@ -185,45 +203,50 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Mobile Menu Toggle ---
+            // --- Mobile Menu Toggle Logic ---
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
 
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
+            // Check if both elements exist before adding event listener
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden'); // Toggles the 'hidden' class to show/hide the menu
+                });
+            }
 
-            // --- Active Section Highlighting ---
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-link');
+            // --- Active Section Highlighting Logic ---
+            const sections = document.querySelectorAll('section'); // Get all section elements
+            const navLinks = document.querySelectorAll('.nav-link'); // Get all navigation links
 
+            // Options for the Intersection Observer
             const observerOptions = {
-                root: null, // observes intersections relative to the viewport
-                rootMargin: '0px',
-                threshold: 0.5 // trigger when 50% of the section is visible
+                root: null, // The viewport is the root
+                rootMargin: '0px', // No margin around the root
+                threshold: 0.5 // Trigger when 50% of the target is visible
             };
 
-            const observer = new IntersectionObserver((entries, observer) => {
+            const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.getAttribute('id');
+                    if (entry.isIntersecting) { // If a section is currently in view
+                        const id = entry.target.getAttribute('id'); // Get the ID of the intersecting section
                         
-                        // Remove active class from all links
+                        // Remove active class from all navigation links first
                         navLinks.forEach(link => {
-                           // For contact button, don't remove background color style
-                           if (!link.href.includes('#contact')) {
-                             link.classList.remove('active-link');
-                           }
+                            // Exclude the 'Contact' button from having its background removed
+                            // as it has a distinct button style
+                            if (!link.href.includes('#contact')) {
+                                link.classList.remove('active-link');
+                            }
                         });
 
-                        // Add active class to the current link
-                        // Exclude the hero section from highlighting a nav item
+                        // Add active class to the corresponding navigation link
+                        // Exclude the 'hero' section as it doesn't typically have a nav item highlighted
                         if (id !== 'hero') {
                             const correspondingLinks = document.querySelectorAll(`a[href="#${id}"]`);
                             correspondingLinks.forEach(link => {
-                                 // For contact button, don't add active link style
+                                // Exclude the 'Contact' button from getting the 'active-link' text style
                                 if (!link.href.includes('#contact')) {
-                                   link.classList.add('active-link');
+                                    link.classList.add('active-link');
                                 }
                             });
                         }
@@ -231,19 +254,23 @@
                 });
             }, observerOptions);
 
+            // Observe each section
             sections.forEach(section => {
                 observer.observe(section);
             });
 
-            // --- Close mobile menu on link click ---
-             const mobileMenuLinks = mobileMenu.getElementsByTagName('a');
-             for (let i = 0; i < mobileMenuLinks.length; i++) {
-                 mobileMenuLinks[i].addEventListener('click', () => {
-                     mobileMenu.classList.add('hidden');
-                 });
-             }
+            // --- Close mobile menu when a link inside it is clicked ---
+            const mobileMenuLinks = mobileMenu ? mobileMenu.getElementsByTagName('a') : [];
+            for (let i = 0; i < mobileMenuLinks.length; i++) {
+                mobileMenuLinks[i].addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden'); // Hide the mobile menu
+                });
+            }
         });
     </script>
+</body>
+</html>
+
 </body>
 </html>
 
