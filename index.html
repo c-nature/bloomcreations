@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloom Creations | Developer & Designer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #4ade80, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a202c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #4a5568;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #718096;
+        }
+        .active-link {
+            color: #4ade80;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+
+    <!-- Header & Navigation Section -->
+    <header class="bg-gray-900/80 backdrop-blur-md sticky top-0 z-40">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#hero" class="text-2xl font-bold gradient-text">Bloom Creations</a>
+            <div id="desktop-nav" class="hidden md:flex items-center space-x-6">
+                <a href="#about" class="nav-link hover:text-green-400 transition-colors duration-300">About</a>
+                <a href="#projects" class="nav-link hover:text-green-400 transition-colors duration-300">Projects</a>
+                <a href="#skills" class="nav-link hover:text-green-400 transition-colors duration-300">Skills</a>
+                <a href="#contact" class="nav-link bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg transition-colors duration-300">Contact</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-gray-200 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#about" class="nav-link block py-2 hover:text-green-400">About</a>
+            <a href="#projects" class="nav-link block py-2 hover:text-green-400">Projects</a>
+            <a href="#skills" class="nav-link block py-2 hover:text-green-400">Skills</a>
+            <a href="#contact" class="nav-link block mt-2 bg-green-500 hover:bg-green-600 text-white font-semibold text-center px-4 py-2 rounded-lg">Contact</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <!-- Hero Section -->
+        <section id="hero" class="text-center py-20">
+            <h1 class="text-5xl md:text-7xl font-bold mb-4">
+                <span class="gradient-text">Cultivating Ideas,</span><br> Crafting Digital Experiences.
+            </h1>
+            <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mt-6">
+                Welcome to Bloom Creations. A passionate IT operations specialist, developer, and graphic designer's portfolio showcasing innovative solutions, software, web projects, and creative designs.
+            </p>
+            <div class="mt-10">
+                <a href="#projects" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full text-lg transition-transform duration-300 transform hover:scale-105">View My Work</a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20">
+            <div class="grid md:grid-cols-5 gap-10 items-center">
+                <div class="md:col-span-2">
+                    <img src="https://placehold.co/600x600/1a202c/4ade80?text=S.B." alt="A photo of Stephen Bloom" class="rounded-full shadow-lg mx-auto w-64 h-64 md:w-full md:h-auto object-cover">
+                </div>
+                <div class="md:col-span-3">
+                    <h2 class="text-3xl font-bold mb-4 text-green-400">Stephen Bloom</h2>
+                    <p class="text-gray-400 mb-4">
+                        I am a versatile and detail-oriented professional with a passion for solving complex problems through both code and design. With a background in software development, IT, Networking, Cyber Security, and Graphic Design, I bring my own creative perspective to every project. My goal is to build applications and create visuals that are not only powerful and efficient but also beautiful and user-friendly.
+                    </p>
+                    <p class="text-gray-400">
+                        From designing scalable backend systems to crafting stunning brand identities and responsive front-end experiences, I am dedicated to the art of technology and visual communication. This portfolio is a curated collection of my work.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20">
+            <h2 class="text-3xl font-bold text-center mb-12 text-green-400">My Projects</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Project Card 1: Subnet Calculator -->
+                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-green-500/20 transition-shadow duration-300 transform hover:-translate-y-2 flex flex-col">
+                    <div class="h-48 flex items-center justify-center p-4">
+                         <img src="subcalcicon.png" alt="Subnet Calculator Screenshot" class="max-h-full max-w-full object-contain" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/4ade80?text=Image+Not+Found';">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold mb-2">Subnet Calculator</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">Empower your network tasks with this intuitive, cross-platform desktop subnet calculator. An essential tool for every network engineer and student.</p>
+                        <div class="flex space-x-4 mt-auto">
+                            <a href="subcalc.html" class="text-green-400 hover:underline">View Demo</a>
+                            <a href="https://github.com/c-nature/Subnet-Calculator" target="_blank" class="text-green-400 hover:underline">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 2: Retro Basketball Pong -->
+                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-green-500/20 transition-shadow duration-300 transform hover:-translate-y-2 flex flex-col">
+                    <img src="https://placehold.co/600x400/1f2937/4ade80?text=Retro+Basketball+Pong" alt="Retro Basketball Pong Screenshot" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold mb-2">Retro Basketball Pong Coming Soon!</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">A fun and engaging retro-style basketball pong game built with Python and AI. Challenge your friends and see who can score the most points by the end of four quarters!</p>
+                       <div class="flex space-x-4 mt-auto">
+                            <a href="nbapongfire.py" class="text-green-400 hover:underline"></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 3: Smarty Pants Online -->
+                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-green-500/20 transition-shadow duration-300 transform hover:-translate-y-2 flex flex-col">
+                    <img src="https://placehold.co/600x400/1f2937/4ade80?text=Smarty+Pants+Online" alt="Smarty Pants Online Screenshot" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold mb-2">Smarty Pants Online Coming Soon!</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">A fun and educational online quiz game. Challenge your knowledge on various topics and compete with friends to see who is the smartest!</p>
+                       <div class="flex space-x-4 mt-auto">
+                            <a href="#" class="text-green-400 hover:underline"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20 bg-gray-800/50 rounded-lg">
+            <h2 class="text-3xl font-bold text-center mb-12 text-green-400">Technical & Creative Skills</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="flex flex-wrap justify-center gap-4">
+                    <span class="bg-gray-700 text-gray-200 text-lg font-medium px-4 py-2 rounded-full">IT Operations</span>
+                    <span class="bg-gray-700 text-gray-200 text-lg font-medium px-4 py-2 rounded-full">Cyber Security</span>
+                    <span class="bg-gray-700 text-gray-200 text-lg font-medium px-4 py-2 rounded-full">Networking</span>
+                    <span class="bg-gray-700 text-gray-200 text-lg font-medium px-4 py-2 rounded-full">Python</span>
+                    <span class="bg-gray-700 text-gray-200 text-lg font-medium px-4 py-2 rounded-full">HTML5 & CSS3</span>
+                    <span class="bg-gray-700 text-gray-200 text-lg font-medium px-4 py-2 rounded-full">AI</span>
+                    <span class="bg-gray-700 text-gray-200 text-lg font-medium px-4 py-2 rounded-full">Adobe Creative Suite</span>
+                    <span class="bg-gray-700 text-gray-200 text-lg font-medium px-4 py-2 rounded-full">UI/UX Design</span>
+                    <span class="bg-gray-700 text-gray-200 text-lg font-medium px-4 py-2 rounded-full">Git & Github</span>
+                    <span class="bg-gray-700 text-gray-200 text-lg font-medium px-4 py-2 rounded-full">PostSQL</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 text-center">
+            <h2 class="text-3xl font-bold mb-4 text-green-400">Get In Touch</h2>
+            <p class="text-gray-400 max-w-2xl mx-auto mb-8">
+                I'm currently open to new opportunities and collaborations. Whether you need a developer, a designer, or both, feel free to reach out. Let's create something amazing together.
+            </p>
+            <a href="mailto:sbloom@cnature.net" class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full text-lg transition-transform duration-300 transform hover:scale-105">
+                Say Hello
+            </a>
+            <div class="mt-8 flex justify-center items-center space-x-6">
+                <a href="https://github.com/c-nature" target="_blank" class="text-gray-400 hover:text-green-400 transition-colors duration-300">
+                    <i class="fab fa-github fa-2x"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/stephenbernardbloom/" target="_blank" class="text-gray-400 hover:text-green-400 transition-colors duration-300">
+                    <i class="fab fa-linkedin fa-2x"></i>
+                </a>
+                <button id="copy-email-button" data-email="sbloom@cnature.net" class="text-gray-400 hover:text-green-400 transition-colors duration-300">
+                    <i class="fas fa-envelope fa-2x"></i>
+                </button>
+                <span id="copy-message" class="text-green-400 hidden ml-2">Copied!</span>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800">
+        <div class="container mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-gray-400">&copy; 2024 Bloom Creations. All Rights Reserved.</p>
+            <div class="flex space-x-6 mt-4 md:mt-0">
+                <a href="https://github.com/c-nature" target="_blank" class="text-gray-400 hover:text-green-400 transition-colors duration-300">GitHub</a>
+                <a href="https://www.linkedin.com/in/stephenbernardbloom/" target="_blank" class="text-gray-400 hover:text-green-400 transition-colors duration-300">LinkedIn</a>
+                <a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Behance</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.5
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        
+                        navLinks.forEach(link => {
+                            if (!link.href.includes('#contact')) {
+                                link.classList.remove('active-link');
+                            }
+                        });
+
+                        if (id !== 'hero') {
+                            const correspondingLinks = document.querySelectorAll(`a[href="#${id}"]`);
+                            correspondingLinks.forEach(link => {
+                                if (!link.href.includes('#contact')) {
+                                    link.classList.add('active-link');
+                                }
+                            });
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            const mobileMenuLinks = mobileMenu ? mobileMenu.getElementsByTagName('a') : [];
+            for (let i = 0; i < mobileMenuLinks.length; i++) {
+                mobileMenuLinks[i].addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            }
+
+            // Copy to clipboard for email
+            const copyEmailButton = document.getElementById('copy-email-button');
+            const copyMessage = document.getElementById('copy-message');
+
+            if (copyEmailButton) {
+                copyEmailButton.addEventListener('click', () => {
+                    const email = copyEmailButton.getAttribute('data-email');
+                    const tempTextArea = document.createElement('textarea');
+                    tempTextArea.value = email;
+                    document.body.appendChild(tempTextArea);
+                    tempTextArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempTextArea);
+
+                    copyMessage.classList.remove('hidden');
+                    setTimeout(() => {
+                        copyMessage.classList.add('hidden');
+                    }, 2000); // Hide message after 2 seconds
+                });
+            }
+        });
+    </script>
+</body>
+</html>
