@@ -1,0 +1,43 @@
+[
+    {
+        "username": "kjordanslay",
+        "p1_score": 36,
+        "p2_score": 36,
+        "difficulty": "2P_MODE",
+        "p1_team": "LAKERS",
+        "p2_team": "KNICKS",
+        "mode": "2P",
+        "timestamp": "2025-06-05 21:11:22"
+    },
+    {
+        "username": "sigmagirl WNBA",
+        "p1_score": 35,
+        "p2_score": 31,
+        "difficulty": "N/A_2P",
+        "p1_team": "LAKERS",
+        "p2_team": "THUNDER",
+        "mode": "2P",
+        "timestamp": "2025-06-06 21:54:20",
+        "player2_username": "C-Nature"
+    },
+    {
+        "username": "kimcardasian",
+        "p1_score": 13,
+        "p2_score": 8,
+        "difficulty": "EASY",
+        "p1_team": "LAKERS",
+        "p2_team": "CELTICS",
+        "mode": "1P",
+        "timestamp": "2025-06-05 21:01:48"
+    },
+    {
+        "username": "Stephen",
+        "p1_score": 12,
+        "p2_score": 7,
+        "difficulty": "NORMAL",
+        "p1_team": "KNICKS",
+        "p2_team": "PACERS",
+        "mode": "1P",
+        "timestamp": "2025-06-05 00:03:40"
+    }
+]
